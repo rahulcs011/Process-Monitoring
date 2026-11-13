@@ -1,0 +1,10 @@
+Scheduler timing with 3000 jobs (best of 3)
+
+FCFS (FIFO)                    0.0024 s
+Priority (non-preemptive)      0.2375 s
+Priority (preemptive)          0.5603 s
+Round Robin                    0.0045 s
+
+Slowest: Priority (preemptive)
+
+monitor.snapshot() of 665 processes: 0.0244 s

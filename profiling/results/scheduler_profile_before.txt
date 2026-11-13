@@ -1,0 +1,23 @@
+         6241878 function calls in 0.823 seconds
+
+   Ordered by: cumulative time
+   List reduced from 26 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.824    0.824 profile_app.py:80(<lambda>)
+        1    0.000    0.000    0.824    0.824 scheduler.py:257(run_algorithm)
+        1    0.277    0.277    0.824    0.824 scheduler.py:189(priority_preemptive)
+    10485    0.304    0.000    0.533    0.000 {built-in method builtins.min}
+  6193222    0.229    0.000    0.229    0.000 scheduler.py:202(<lambda>)
+     3000    0.009    0.000    0.009    0.000 {method 'remove' of 'list' objects}
+        1    0.001    0.001    0.002    0.002 scheduler.py:123(_finish)
+     5113    0.001    0.000    0.002    0.000 scheduler.py:113(_add_slice)
+        4    0.000    0.000    0.001    0.000 {built-in method builtins.sum}
+        1    0.000    0.000    0.001    0.001 scheduler.py:104(_prepare)
+        1    0.000    0.000    0.000    0.000 scheduler.py:79(busy_time)
+     6012    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+     3012    0.000    0.000    0.000    0.000 scheduler.py:81(<genexpr>)
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.sorted}
+     3000    0.000    0.000    0.000    0.000 scheduler.py:96(__init__)
+
+

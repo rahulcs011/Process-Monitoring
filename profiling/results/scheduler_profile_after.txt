@@ -1,0 +1,23 @@
+         87819 function calls in 0.012 seconds
+
+   Ordered by: cumulative time
+   List reduced from 27 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.013    0.013 profile_app.py:80(<lambda>)
+        1    0.000    0.000    0.013    0.013 scheduler.py:271(run_algorithm)
+        1    0.005    0.005    0.013    0.013 scheduler.py:233(round_robin)
+        1    0.001    0.001    0.003    0.003 scheduler.py:124(_finish)
+        4    0.001    0.000    0.002    0.000 {built-in method builtins.sum}
+     9115    0.001    0.000    0.001    0.000 scheduler.py:243(admit)
+        1    0.000    0.000    0.001    0.001 scheduler.py:80(busy_time)
+        2    0.001    0.000    0.001    0.000 {built-in method builtins.sorted}
+     9114    0.001    0.000    0.001    0.000 scheduler.py:82(<genexpr>)
+     9113    0.001    0.000    0.001    0.000 {built-in method builtins.min}
+    12113    0.001    0.000    0.001    0.000 {method 'popleft' of 'collections.deque' objects}
+    12114    0.001    0.000    0.001    0.000 {method 'append' of 'list' objects}
+        1    0.000    0.000    0.001    0.001 scheduler.py:105(_prepare)
+     9113    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}
+        1    0.000    0.000    0.000    0.000 scheduler.py:84(context_switches)
+
+

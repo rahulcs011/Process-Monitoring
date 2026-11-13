@@ -1,0 +1,23 @@
+         98557 function calls (90135 primitive calls) in 0.041 seconds
+
+   Ordered by: cumulative time
+   List reduced from 86 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    0.041    0.041 monitor.py:50(snapshot)
+      666    0.000    0.000    0.040    0.000 __init__.py:1512(process_iter)
+      665    0.003    0.000    0.039    0.000 __init__.py:545(as_dict)
+12056/6515    0.003    0.000    0.018    0.000 _psosx.py:343(wrapper)
+8201/5320    0.002    0.000    0.016    0.000 _common.py:367(wrapper)
+      665    0.000    0.000    0.011    0.000 __init__.py:757(username)
+      665    0.010    0.000    0.010    0.000 {built-in method pwd.getpwuid}
+     1330    0.000    0.000    0.008    0.000 _psosx.py:370(_get_kinfo_proc)
+     1330    0.008    0.000    0.008    0.000 {built-in method psutil._psutil_osx.proc_kinfo_oneshot}
+      665    0.000    0.000    0.008    0.000 __init__.py:673(name)
+      665    0.000    0.000    0.007    0.000 __init__.py:654(ppid)
+      665    0.000    0.000    0.007    0.000 __init__.py:459(_raise_if_pid_reused)
+      665    0.000    0.000    0.006    0.000 __init__.py:625(is_running)
+      665    0.000    0.000    0.006    0.000 __init__.py:313(__init__)
+      665    0.000    0.000    0.006    0.000 __init__.py:316(_init)
+
+
