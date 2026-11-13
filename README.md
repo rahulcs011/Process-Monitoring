@@ -16,11 +16,7 @@ A desktop app (Python + Tkinter) that watches the processes running on your comp
 
 | Member | Roll no. | Main part |
 |---|---|---|
-| Member 1 | ROLL-NO | Scheduling algorithms and statistics |
-| Member 2 | ROLL-NO | Process monitor and process tree |
-| Member 3 | ROLL-NO | GUI and plotting |
-| Member 4 | ROLL-NO | Real process scheduler, threads, bash scripts |
-| Member 5 | ROLL-NO | Tests, profiling, report and slides |
+| Rahul Ahirwar | CS25BT011 |
 
 ## Topics covered
 
