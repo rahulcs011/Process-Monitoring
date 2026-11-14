@@ -1,0 +1,18 @@
+1d2346c  2026-11-13  Initial project structure and requirements
+fde5839  2026-11-13  Add FCFS, priority and round robin scheduling with stats
+f6d32ca  2026-11-13  Add process monitor, process tree and monitor thread
+ae1e25e  2026-11-13  Run real child processes and schedule them with SIGSTOP/SIGCONT
+5260647  2026-11-13  Add Tkinter GUI with live graphs and gantt charts
+f0b2318  2026-11-13  Add command line interface
+c1d9120  2026-11-13  Add unit tests for schedulers, monitor and real scheduler
+5c927a2  2026-11-13  Add cProfile script and baseline profiling results
+69d430d  2026-11-13  Use a heap for priority scheduling
+6f6bc01  2026-11-13  Cache uid to user name lookups in monitor
+cdde175  2026-11-13  Show a clean error message for invalid jobs in CLI
+d4efcb0  2026-11-13  Add bash scripts for setup, run, tests, profiling, docs, stress and demo
+e313553  2026-11-13  Add tests comparing heap priority code with a simple reference, edge cases and CLI
+f975f54  2026-11-13  Add script that draws charts for the report and slides
+49997e7  2026-11-13  Add LaTeX report
+26b8298  2026-11-13  Add Beamer presentation
+3e54b52  2026-11-13  Write README with installation, usage, testing and profiling; add guide and demo plan
+f8935bf  2026-11-13  Rebuild report and slides with final results and git history

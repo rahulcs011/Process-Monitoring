@@ -1,0 +1,231 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\usepackage{booktabs}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\scriptsize, breaklines=true, frame=single, backgroundcolor=\color{gray!8}}
+
+\title[Process Monitor \& Scheduler]{CPU / Process Monitor and Job Scheduler}
+\subtitle{Software Systems Lab Project}
+\author[Team]{Rahul Ahirwar}
+\institute{IIT Dharwad}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{The problem}
+  \begin{itemize}
+    \item A computer runs hundreds of processes, but one CPU core runs only one at a time.
+    \item \textbf{What is running now?} \(\rightarrow\) process monitoring
+    \item \textbf{Who runs next?} \(\rightarrow\) CPU scheduling
+  \end{itemize}
+  \vspace{0.4cm}
+  \textbf{Our app does both:}
+  \begin{itemize}
+    \item live process table, process tree and system graphs
+    \item FCFS, Priority and Round Robin with Gantt charts and statistics
+    \item scheduling of \emph{real} processes with Unix signals
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Course topics used}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    Topic & In our project \\
+    \midrule
+    Unix process hierarchy & process tree, fork/exec, signals \\
+    Process monitoring & psutil, process states, CPU/memory \\
+    Threads & monitor thread, scheduler thread, lock + queue \\
+    Python + GUI & Tkinter app with 5 tabs \\
+    Plotting & matplotlib live graphs and Gantt charts \\
+    Profiling & cProfile, pstats, /usr/bin/time \\
+    Bash, Git, \LaTeX & 7 scripts, commit history, report + slides \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]{Design}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+\begin{lstlisting}
+main.py
+procsched/
+  scheduler.py  algorithms + stats
+  monitor.py    psutil, tree, thread
+  executor.py   real processes
+  gui.py        Tkinter + matplotlib
+  cli.py        terminal mode
+tests/          26 tests
+profiling/      cProfile
+scripts/        bash automation
+\end{lstlisting}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Threads}
+      \begin{itemize}
+        \item Main thread: only one allowed to touch the GUI
+        \item MonitorThread: reads processes every 1.5\,s
+        \item RealScheduler: starts and switches jobs
+        \item Data shared with a \texttt{Lock} and a \texttt{Queue}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Unix process hierarchy}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+        \item every process has a PID and a parent (PPID)
+        \item new process = \texttt{fork()} + \texttt{exec()}
+        \item root is PID 1 (\texttt{launchd} / \texttt{systemd})
+        \item orphan: parent died, adopted by PID 1
+        \item zombie: finished, parent did not \texttt{wait()}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \small
+      \texttt{launchd (1)}\\
+      \texttt{\ \ |-- Terminal}\\
+      \texttt{\ \ |\ \ \ \ \`{}-- zsh}\\
+      \texttt{\ \ |\ \ \ \ \ \ \ \ \`{}-- python main.py}\\
+      \texttt{\ \ |\ \ \ \ \ \ \ \ \ \ \ \ |-- job A}\\
+      \texttt{\ \ |\ \ \ \ \ \ \ \ \ \ \ \ \`{}-- job B}\\
+      \texttt{\ \ \`{}-- Chrome ...}
+      \vspace{0.3cm}
+
+      Signals: \texttt{SIGTERM}, \texttt{SIGKILL}, \texttt{SIGSTOP}, \texttt{SIGCONT}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Scheduling algorithms}
+  \begin{description}
+    \item[FCFS] bank queue: first come, first served. Problem: convoy effect.
+    \item[Priority] hospital emergency room: most important first. Preemptive or not. Problem: starvation (fix: aging).
+    \item[Round Robin] everyone gets a fixed time quantum in turns. Fair, but more context switches.
+  \end{description}
+  \vspace{0.3cm}
+  \[
+  \text{TAT} = \text{finish} - \text{arrival}\qquad
+  \text{Wait} = \text{TAT} - \text{burst}\qquad
+  \text{Response} = \text{first run} - \text{arrival}
+  \]
+\end{frame}
+
+\begin{frame}{Results: Gantt charts}
+  \centering
+  \includegraphics[width=0.72\textwidth]{gantt_all.png}\\
+  \small Jobs: P1(0,5,3) \quad P2(1,3,2) \quad P3(2,1,1) \quad (arrival, burst, priority)
+\end{frame}
+
+\begin{frame}{Results: comparison}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \includegraphics[width=\textwidth]{compare.png}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \small
+      \begin{tabular}{lccc}
+        \toprule
+        & Wait & TAT & Resp \\
+        \midrule
+        FCFS & 3.33 & 6.33 & 3.33 \\
+        Prio NP & 2.67 & 5.67 & 2.67 \\
+        Prio P & 1.67 & 4.67 & 0.00 \\
+        RR q=2 & 3.33 & 6.33 & 1.00 \\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.3cm}
+      \begin{itemize}
+        \item RR: same waiting as FCFS but much faster response
+        \item matches our hand calculation
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Real processes with SIGSTOP / SIGCONT}
+  \centering
+  \includegraphics[width=0.85\textwidth]{real_rr.png}
+  \begin{itemize}
+    \item each job is a real child process that needs N seconds of CPU
+    \item scheduler thread: \texttt{SIGCONT} to run, \texttt{SIGSTOP} when the quantum ends
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Profiling with cProfile}
+  \begin{columns}
+    \begin{column}{0.55\textwidth}
+      \includegraphics[width=\textwidth]{profiling.png}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \small
+      \textbf{Found:} 6.2 million calls to \texttt{min()}'s key in priority scheduling \(\rightarrow\) \(O(n^2)\)\\[4pt]
+      \textbf{Fix:} heap (\texttt{heapq}) \(\rightarrow\) \(O(n\log n)\)\\[4pt]
+      \textbf{Speed-up (3000 jobs):}\\
+      non-preemptive 0.2375 s \(\rightarrow\) 0.0036 s\\
+      preemptive 0.5603 s \(\rightarrow\) 0.0042 s\\[4pt]
+      \textbf{Monitor:} caching user names: 0.0244 s \(\rightarrow\) 0.0186 s
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Testing and automation}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \textbf{26 unit tests}
+      \begin{itemize}
+        \item hand-solved examples
+        \item heap version vs simple reference (300 random cases)
+        \item edge cases, starvation, convoy effect
+        \item monitor, real processes, CLI
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Bash scripts}
+      \begin{itemize}
+        \item \texttt{setup.sh}, \texttt{run.sh}
+        \item \texttt{run\_tests.sh}
+        \item \texttt{profile.sh}
+        \item \texttt{build\_docs.sh}
+        \item \texttt{stress.sh}, \texttt{demo.sh}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Live demo}
+  \begin{enumerate}
+    \item Processes tab: sort by CPU, start \texttt{stress.sh}, find and suspend a worker
+    \item Process Tree: our app and its children
+    \item System Monitor: live CPU graph
+    \item Scheduler: Example \(\rightarrow\) Compare all
+    \item Real Process Scheduler: Round Robin with signals
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Conclusion}
+  \begin{itemize}
+    \item One app for monitoring processes and scheduling jobs
+    \item Real Unix concepts: process tree, fork/exec, signals, threads
+    \item Profiling found a real bottleneck: up to 133\(\times\) faster
+    \item Future: SJF, multilevel feedback queue, aging, saving history
+  \end{itemize}
+  \vspace{0.4cm}
+  \footnotesize\textbf{AI declaration:} we used an AI assistant (Claude) for planning, explanations and first drafts of code. We reviewed, ran and tested
+  everything and can explain each part.
+\end{frame}
+
+\begin{frame}
+  \centering
+  \Huge Thank you!\\[0.5cm]
+\end{frame}
+
+\end{document}
