@@ -22,7 +22,8 @@
 \toprule
 Name & Roll number \\
 \midrule
-Rahul Ahirwar & CS25BT011
+Rahul Ahirwar & CS25BT011 \\
+Ganesh & CS25BT010 \\
 \bottomrule
 \end{tabular}}
 \newcommand{\coursename}{Software Systems Lab}
@@ -38,7 +39,7 @@ Rahul Ahirwar & CS25BT011
 \vspace{1cm}
 {\Huge\bfseries CPU / Process Monitor\\[4pt] and Job Scheduler\par}
 \vspace{1.5cm}
-
+\teamtable
 \vspace{1.5cm}
 
 {\large \institute\par}
@@ -52,7 +53,7 @@ Rahul Ahirwar & CS25BT011
 We built a desktop application in Python that watches the processes running on a
 Unix machine (macOS/Linux) and also acts as a CPU scheduler. The monitor shows every
 process with its CPU and memory use, draws the parent--child process tree and plots live
-system graphs. The scheduler part runs First Come First Served (FCFS), Priority
+system graphs. The scheduler part runs First In First Out (FIFO), Priority
 (preemptive and non-preemptive) and Round Robin scheduling, draws Gantt charts and
 computes waiting, turnaround and response time, throughput and CPU utilisation.
 It can also schedule \emph{real} child processes by pausing and resuming them with the
@@ -437,7 +438,11 @@ history to a file.
 \toprule
 Member & Work \\
 \midrule
-Rahul Ahirwar
+Rahul Ahirwar (CS25BT011) & Design and all of the code: scheduling algorithms (FCFS,
+  Priority, Round Robin) and statistics, process monitor and process tree (psutil), real
+  process scheduler with threads and signals, Tkinter GUI and matplotlib plots, bash
+  scripts, unit tests, profiling and the Git repository \\
+Ganesh (CS25BT010) & \LaTeX{} report, Beamer slides and the presentation \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -446,10 +451,9 @@ Rahul Ahirwar
 \section{Declaration of AI use}
 As allowed by the course AI policy, we used an AI assistant (Claude, by Anthropic) while
 building this project. It helped us plan the project, explain the concepts, write first
-versions of the code, the scripts and this report, and set up profiling. We reviewed and
-ran all of the code and checked the scheduling results by hand. Every team member
-can explain the parts listed under their name. All profiling numbers and test results in
-this report come from running the project on our own machine.
+versions of the code, the scripts, and set up profiling. We reviewed and
+ran all of the code and checked the scheduling results by hand. Both team members
+can explain the parts listed under their name. All profiling numbers and test results in this report come from running the project on our own machine.
 
 %=======================================================================
 \begin{thebibliography}{9}
@@ -461,4 +465,3 @@ this report come from running the project on our own machine.
 \end{thebibliography}
 
 \end{document}
-
