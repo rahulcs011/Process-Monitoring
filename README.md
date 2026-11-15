@@ -16,9 +16,7 @@ A desktop app (Python + Tkinter) that watches the processes running on your comp
 
 | Member | Roll no. | Main part |
 |---|---|---|
-| Rahul Ahirwar | CS25BT011 | Design and all the code: scheduling algorithms and statistics, process monitor and tree, real process scheduler
-(threads, signals), Tkinter GUI and plots, bash scripts,
-tests, profiling, Git |
+| Rahul Ahirwar | CS25BT011 | Design and all the code: scheduling algorithms and statistics, process monitor and tree, real process scheduler (threads, signals), Tkinter GUI and plots, bash scripts, tests, profiling, Git |
 | Ganesh | CS25BT010 |ATEX report, Beamer slides and the presentation |
 
 
